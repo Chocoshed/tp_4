@@ -10,7 +10,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: julief/apiTemplate
+  IMAGE_NAME: Chocoshed/tp_4
 
 jobs:
   build-and-publish:
