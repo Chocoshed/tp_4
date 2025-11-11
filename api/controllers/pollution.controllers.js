@@ -109,3 +109,27 @@ exports.update = (req, res) => {
       });
     });
 };
+
+exports.delete = (req, res) => {
+  const id = req.params.id;
+
+  Pollution.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Pollution supprimée avec succès!"
+        });
+      } else {
+        res.status(404).send({
+          message: `Impossible de supprimer la pollution avec l'id=${id}. Pollution non trouvée!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Erreur lors de la suppression de la pollution avec l'id=" + id
+      });
+    });
+};

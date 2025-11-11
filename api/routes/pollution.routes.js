@@ -16,6 +16,9 @@ module.exports = app => {
     
     // Mettre à jour une pollution
     router.put("/:id", pollution.update);
+    
+    // Supprimer une pollution
+    router.delete("/:id", pollution.delete);
   
     app.use('/api/pollution', router);
   };
