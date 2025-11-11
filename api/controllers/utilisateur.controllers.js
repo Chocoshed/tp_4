@@ -76,15 +76,15 @@ exports.getById = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  if (!req.body.id || !req.body.nom || !req.body.login) {
+  if (!req.body.nom || !req.body.login) {
     res.status(400).send({
-      message: "L'ID, le nom et le login sont requis!"
+      message: "Le nom et le login sont requis!"
     });
     return;
   }
 
   const utilisateur = {
-    id: req.body.id,
+    id: req.body.id || uuidv4(), // Générer un UUID si l'ID n'est pas fourni
     nom: req.body.nom,
     prenom: req.body.prenom,
     login: req.body.login,
