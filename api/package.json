@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./index.js"
+    "start": "node ./index.js",
+    "db:seed": "node ../database/seed.js",
+    "db:reset": "node ../database/reset.js",
+    "db:init:sql": "psql -h dpg-d4i74gi4d50c73cojs30-a.oregon-postgres.render.com -U pollution_user -d pollution -f ../database/init.sql"
   },
   "author": "",
   "license": "ISC",
