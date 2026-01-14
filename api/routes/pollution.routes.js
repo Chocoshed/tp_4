@@ -2,23 +2,26 @@
 
 module.exports = app => {
     const pollution = require("../controllers/pollution.controllers.js");
+    const { verifyToken } = require("../middleware/auth.middleware.js");
   
     var router = require("express").Router();
   
+    // Routes publiques (lecture)
     // Récupérer toutes les pollutions
     router.get("/", pollution.get);
     
     // Récupérer une pollution par ID
     router.get("/:id", pollution.getById);
     
+    // Routes protégées (nécessitent authentification)
     // Créer une nouvelle pollution
-    router.post("/", pollution.create);
+    router.post("/", verifyToken, pollution.create);
     
     // Mettre à jour une pollution
-    router.put("/:id", pollution.update);
+    router.put("/:id", verifyToken, pollution.update);
     
     // Supprimer une pollution
-    router.delete("/:id", pollution.delete);
+    router.delete("/:id", verifyToken, pollution.delete);
   
     app.use('/api/pollution', router);
   };

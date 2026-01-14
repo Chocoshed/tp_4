@@ -2,16 +2,28 @@
 
 module.exports = app => {
     const utilisateur = require("../controllers/utilisateur.controllers.js");
+    const { verifyToken } = require("../middleware/auth.middleware.js");
   
     var router = require("express").Router();
   
+    // Routes publiques
+    // Inscription d'un nouvel utilisateur
+    router.post("/register", utilisateur.register);
+    
+    // Connexion utilisateur
+    router.post("/login", utilisateur.login);
+    
+    // Routes protégées (nécessitent authentification)
+    // Récupérer l'utilisateur connecté
+    router.get("/me", verifyToken, utilisateur.getCurrentUser);
+    
     // Récupérer tous les utilisateurs
     router.get("/", utilisateur.getAll);
     
     // Récupérer un utilisateur par ID
     router.get("/:id", utilisateur.getById);
     
-    // Créer un nouvel utilisateur
+    // Créer un nouvel utilisateur (admin)
     router.post("/", utilisateur.create);
     
     // Mettre à jour un utilisateur
@@ -19,9 +31,6 @@ module.exports = app => {
     
     // Supprimer un utilisateur
     router.delete("/:id", utilisateur.delete);
-
-    // Login utilisateur
-    router.post("/login", utilisateur.login);
   
     app.use('/api/utilisateur', router);
   };
