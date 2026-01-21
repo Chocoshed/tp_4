@@ -13,6 +13,9 @@ module.exports = app => {
     // Connexion utilisateur
     router.post("/login", utilisateur.login);
     
+    // Déconnexion utilisateur
+    router.post("/logout", utilisateur.logout);
+    
     // Routes protégées (nécessitent authentification)
     // Récupérer l'utilisateur connecté
     router.get("/me", verifyToken, utilisateur.getCurrentUser);

@@ -5,21 +5,21 @@ const { ACCESS_TOKEN_SECRET } = require("../config");
  * Middleware pour vérifier le token JWT
  */
 const verifyToken = (req, res, next) => {
-  // Récupérer le token depuis le header Authorization
-  const authHeader = req.headers['authorization'];
+  // Récupérer le token depuis le cookie en priorité
+  let token = req.cookies.auth_token;
   
-  if (!authHeader) {
-    return res.status(401).send({
-      message: "Accès refusé. Aucun token fourni."
-    });
+  // Fallback sur le header Authorization si pas de cookie
+  if (!token) {
+    const authHeader = req.headers['authorization'];
+    if (authHeader) {
+      // Le format attendu est "Bearer TOKEN"
+      token = authHeader.split(' ')[1];
+    }
   }
-
-  // Le format attendu est "Bearer TOKEN"
-  const token = authHeader.split(' ')[1];
-
+  
   if (!token) {
     return res.status(401).send({
-      message: "Accès refusé. Token invalide."
+      message: "Accès refusé. Aucun token fourni."
     });
   }
 

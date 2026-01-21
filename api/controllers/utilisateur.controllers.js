@@ -62,15 +62,22 @@ exports.register = async (req, res) => {
       { expiresIn: "24h" }
     );
 
-    // Retourner l'utilisateur (sans le mot de passe) et le token
+    // Envoyer le token dans un cookie httpOnly
+    res.cookie('auth_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60 * 1000 // 24h
+    });
+
+    // Retourner l'utilisateur (sans le mot de passe)
     res.status(201).send({
       user: {
         id: data.id,
         nom: data.nom,
         prenom: data.prenom,
         login: data.login
-      },
-      token: token
+      }
     });
 
   } catch (err) {
@@ -123,15 +130,22 @@ exports.login = async (req, res) => {
       { expiresIn: "24h" }
     );
 
-    // Retourner l'utilisateur (sans le mot de passe) et le token
+    // Envoyer le token dans un cookie httpOnly
+    res.cookie('auth_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60 * 1000 // 24h
+    });
+
+    // Retourner l'utilisateur (sans le mot de passe)
     res.send({
       user: {
         id: data.id,
         nom: data.nom,
         prenom: data.prenom,
         login: data.login
-      },
-      token: token
+      }
     });
 
   } catch (err) {
@@ -170,6 +184,18 @@ exports.getCurrentUser = async (req, res) => {
       message: err.message || "Erreur lors de la récupération de l'utilisateur."
     });
   }
+};
+
+/**
+ * Déconnexion - Suppression du cookie
+ */
+exports.logout = (req, res) => {
+  res.clearCookie('auth_token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict'
+  });
+  res.send({ message: "Déconnexion réussie" });
 };
 
 exports.getAll = (req, res) => {
