@@ -77,7 +77,8 @@ exports.register = async (req, res) => {
         nom: data.nom,
         prenom: data.prenom,
         login: data.login
-      }
+      },
+      token: token
     });
 
   } catch (err) {
@@ -145,7 +146,8 @@ exports.login = async (req, res) => {
         nom: data.nom,
         prenom: data.prenom,
         login: data.login
-      }
+      },
+      token: token
     });
 
   } catch (err) {
