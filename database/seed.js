@@ -41,7 +41,8 @@ const pollutionsData = [
     description: 'Nombreux déchets plastiques observés sur le sable',
     latitude: 43.695949,
     longitude: 7.271413,
-    photo_url: null
+    photo_url: null,
+    utilisateur_id: null  // Sera défini après la création des utilisateurs
   },
   {
     titre: 'Fuite d\'huile moteur',
@@ -51,7 +52,8 @@ const pollutionsData = [
     description: 'Grande flaque d\'huile dans le parking',
     latitude: 45.764043,
     longitude: 4.835659,
-    photo_url: null
+    photo_url: null,
+    utilisateur_id: null  // Sera défini après la création des utilisateurs
   },
   {
     titre: 'Décharge sauvage en forêt',
@@ -61,7 +63,8 @@ const pollutionsData = [
     description: 'Plusieurs sacs poubelles abandonnés',
     latitude: 48.404842,
     longitude: 2.700348,
-    photo_url: null
+    photo_url: null,
+    utilisateur_id: null  // Sera défini après la création des utilisateurs
   },
   {
     titre: 'Pollution de rivière',
@@ -71,7 +74,8 @@ const pollutionsData = [
     description: 'Eau trouble avec mousse blanche suspecte',
     latitude: 43.610769,
     longitude: 3.876716,
-    photo_url: null
+    photo_url: null,
+    utilisateur_id: null  // Sera défini après la création des utilisateurs
   },
   {
     titre: 'Dépôt de gravats',
@@ -81,7 +85,8 @@ const pollutionsData = [
     description: 'Tas de gravats déposé illégalement',
     latitude: 43.296482,
     longitude: 5.369780,
-    photo_url: null
+    photo_url: null,
+    utilisateur_id: null  // Sera défini après la création des utilisateurs
   }
 ];
 
@@ -101,6 +106,13 @@ async function seedDatabase() {
     console.log('\n🔄 Insertion des utilisateurs...');
     const utilisateurs = await db.utilisateurs.bulkCreate(utilisateursData);
     console.log(`✅ ${utilisateurs.length} utilisateurs créés.`);
+
+    // Assigner les utilisateurs aux pollutions
+    pollutionsData[0].utilisateur_id = utilisateurs[0].id;  // Jean Dupont
+    pollutionsData[1].utilisateur_id = utilisateurs[1].id;  // Sophie Martin
+    pollutionsData[2].utilisateur_id = utilisateurs[0].id;  // Jean Dupont
+    pollutionsData[3].utilisateur_id = utilisateurs[2].id;  // Luc Bernard
+    pollutionsData[4].utilisateur_id = utilisateurs[1].id;  // Sophie Martin
 
     console.log('\n🔄 Insertion des pollutions...');
     const pollutions = await db.pollution.bulkCreate(pollutionsData);

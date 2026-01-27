@@ -31,6 +31,14 @@ module.exports = (sequelize, Sequelize) => {
     },
     photo_url: {
       type: Sequelize.STRING
+    },
+    utilisateur_id: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      references: {
+        model: 'utilisateurs',
+        key: 'id'
+      }
     }
   });
 
