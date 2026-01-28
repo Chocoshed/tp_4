@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const app  = express ();
 
 var corsOptions = {
-  origin: "http://localhost:4200",
+  origin: "https://tp04-fromageat-julie.onrender.com/",
   credentials: true,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   headers: 'Content-Type, Authorization',
