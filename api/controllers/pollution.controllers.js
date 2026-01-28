@@ -192,3 +192,47 @@ exports.delete = (req, res) => {
       res.status(500).send({ message: err.message });
     });
 };
+
+exports.search = async (req, res) => {
+  try {
+    const { q } = req.query;
+    
+    if (!q || q.trim() === '') {
+      const pollutions = await Pollution.findAll({
+        include: [{
+          model: db.utilisateurs,
+          as: 'utilisateur',
+          attributes: ['id', 'nom', 'prenom', 'login']
+        }],
+        order: [['date_observation', 'DESC']]
+      });
+      return res.status(200).json(pollutions);
+    }
+    
+    const searchTerm = `%${q}%`;
+    
+    const pollutions = await Pollution.findAll({
+      where: {
+        [Op.or]: [
+          { titre: { [Op.iLike]: searchTerm } },
+          { lieu: { [Op.iLike]: searchTerm } },
+          { type_pollution: { [Op.iLike]: searchTerm } },
+          { description: { [Op.iLike]: searchTerm } }
+        ]
+      },
+      include: [{
+        model: db.utilisateurs,
+        as: 'utilisateur',
+        attributes: ['id', 'nom', 'prenom', 'login']
+      }],
+      order: [['date_observation', 'DESC']]
+    });
+    
+    res.status(200).json(pollutions);
+  } catch (error) {
+    res.status(500).json({ 
+      message: "Erreur lors de la recherche de pollutions",
+      error: error.message 
+    });
+  }
+};

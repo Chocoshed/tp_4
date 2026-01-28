@@ -7,6 +7,9 @@ module.exports = app => {
     var router = require("express").Router();
   
     // Routes publiques (lecture)
+    // Recherche de pollutions
+    router.get("/search", pollution.search);
+    
     // Récupérer toutes les pollutions
     router.get("/", pollution.get);
     
