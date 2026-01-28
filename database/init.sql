@@ -37,11 +37,11 @@ INSERT INTO utilisateurs (id, nom, prenom, login, pass) VALUES
 
 -- Insertion de données de test pour les pollutions
 INSERT INTO pollutions (titre, lieu, date_observation, type_pollution, description, latitude, longitude, photo_url, utilisateur_id) VALUES
-('Déchets plastiques sur la plage', 'Plage de Nice', '2025-12-15 14:30:00', 'Déchets', 'Nombreux déchets plastiques observés sur le sable', 43.695949, 7.271413, NULL, '550e8400-e29b-41d4-a716-446655440000'),
-('Fuite d''huile moteur', 'Parking Leclerc, Lyon', '2026-01-05 10:15:00', 'Hydrocarbures', 'Grande flaque d''huile dans le parking', 45.764043, 4.835659, NULL, '550e8400-e29b-41d4-a716-446655440001'),
-('Décharge sauvage en forêt', 'Forêt de Fontainebleau', '2026-01-08 09:00:00', 'Déchets', 'Plusieurs sacs poubelles abandonnés', 48.404842, 2.700348, NULL, '550e8400-e29b-41d4-a716-446655440000'),
-('Pollution de rivière', 'Rivière Le Lez, Montpellier', '2026-01-10 16:45:00', 'Eau', 'Eau trouble avec mousse blanche suspecte', 43.610769, 3.876716, NULL, '550e8400-e29b-41d4-a716-446655440002'),
-('Dépôt de gravats', 'Rue de la République, Marseille', '2026-01-12 11:20:00', 'Déchets', 'Tas de gravats déposé illégalement', 43.296482, 5.369780, NULL, '550e8400-e29b-41d4-a716-446655440001');
+('Décharge sauvage près du chemin forestier', 'Forêt de la Robertsau', '2025-10-15', 'Dépôt sauvage', 'Tas de déchets ménagers et plastiques abandonnés au bord du chemin.', 48.6275, 7.8032, 'https://exemple.com/photos/depot1.jpg', '550e8400-e29b-41d4-a716-446655440000'),
+('Pollution plastique dans la rivière', 'Rivière Ill, Strasbourg', '2025-09-28', 'Plastique', 'Accumulation de bouteilles et emballages dans le cours d''eau.', 48.5839, 7.7455, 'https://exemple.com/photos/plastique2.jpg', '550e8400-e29b-41d4-a716-446655440001'),
+('Fumées suspectes d''une usine', 'Zone industrielle de Reichstett', '2025-10-10', 'Air', 'Émission de fumées noires pendant plusieurs heures.', 48.6572, 7.7561, 'https://exemple.com/photos/usine3.jpg', '550e8400-e29b-41d4-a716-446655440000'),
+('Rejet chimique dans le canal', 'Canal du Rhône au Rhin, Neudorf', '2025-10-22', 'Chimique', 'Substance huileuse et colorée observée à la surface de l''eau.', 48.5608, 7.7654, 'https://exemple.com/photos/produit4.jpg', '550e8400-e29b-41d4-a716-446655440002'),
+('Déversement d''eaux usées', 'Rue du Faubourg-National, Strasbourg', '2025-10-05', 'Eau', 'Écoulement d''eaux usées non traitées depuis une bouche d''égout.', 48.5823, 7.7396, NULL, '550e8400-e29b-41d4-a716-446655440001');
 
 -- Affichage des statistiques
 SELECT 'Utilisateurs créés:' AS info, COUNT(*) AS nombre FROM utilisateurs;

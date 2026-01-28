@@ -16,19 +16,19 @@ async function resetDatabase() {
 
     console.log('\n⚠️  Suppression de toutes les données...');
     
-    // Supprimer toutes les pollutions
+    // Supprimer toutes les pollutions AVANT les utilisateurs (à cause de la clé étrangère)
     const deletedPollutions = await db.pollution.destroy({
       where: {},
       truncate: true
     });
-    console.log(`✅ ${deletedPollutions} pollutions supprimées.`);
+    console.log(`✅ Pollutions supprimées.`);
 
-    // Supprimer tous les utilisateurs
+    // Supprimer tous les utilisateurs avec CASCADE pour gérer les contraintes
     const deletedUtilisateurs = await db.utilisateurs.destroy({
       where: {},
-      truncate: true
+      truncate: { cascade: true }
     });
-    console.log(`✅ ${deletedUtilisateurs} utilisateurs supprimés.`);
+    console.log(`✅ Utilisateurs supprimés.`);
 
     console.log('\n✨ Base de données réinitialisée avec succès!');
     
